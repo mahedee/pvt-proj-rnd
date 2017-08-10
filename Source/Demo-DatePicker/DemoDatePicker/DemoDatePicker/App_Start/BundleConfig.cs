@@ -21,13 +21,13 @@ namespace DemoDatePicker
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap-datetimepicker.js", //datepicker
-                      "~/Scripts/moment.js", //datepicker
+                      //"~/Scripts/bootstrap-datetimepicker.js", //datepicker
+                      //"~/Scripts/moment.js", //datepicker
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-datetimepicker.css",
+                      //"~/Content/bootstrap-datetimepicker.css",
                       "~/Content/site.css"));
         }
     }
