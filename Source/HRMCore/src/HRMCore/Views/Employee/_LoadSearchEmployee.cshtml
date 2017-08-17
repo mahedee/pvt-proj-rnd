@@ -1,0 +1,133 @@
+﻿@model IEnumerable<HRMCore.Models.Employee>
+
+    @{
+        ViewBag.Title = "View1";
+    }
+
+    <h2>List of Employees</h2>
+
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation.Name)
+            </th>
+            <th hidden="hidden"></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dept.Name)
+            </th>
+            <th hidden="hidden"></th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th hidden="hidden"></th>
+            <th hidden="hidden"></th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NickName)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designation.Name)
+
+                </td>
+                <td hidden="hidden">
+                    @item.DesignationId
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dept.Name)
+                </td>
+
+                <td hidden="hidden">
+                    @item.DeptId
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td hidden="hidden">
+                    @item.Address
+                </td>
+
+                <td hidden="hidden">
+                    @item.Id
+                </td>
+                <td>
+                <input type="button" id="editRow" value="Edit" class="btn btn-link editRow" />
+                |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+
+            $('#EmpCode').val('');
+            $('#FullName').val('');
+            $('#NickName').val('');
+            $('#Phone').val('');
+            $('#Email').val('');
+
+            $('.editRow').click(function () {
+
+                $('#EmpCode').val($(this).closest('tr').find('td:eq(0)').text().trim());
+                $('#FullName').val($(this).closest('tr').find('td:eq(1)').text().trim());
+                $('#NickName').val($(this).closest('tr').find('td:eq(2)').text().trim());
+
+                var designationId = $(this).closest('tr').find('td:eq(4)').text().trim();
+                var deptId = $(this).closest('tr').find('td:eq(6)').text().trim();
+                //alert(designationId);
+                $("#DesignationId").val(designationId);
+                $("#DeptId").val(deptId);
+
+                $('#Phone').val($(this).closest('tr').find('td:eq(7)').text().trim());
+                $('#Email').val($(this).closest('tr').find('td:eq(8)').text().trim());
+
+                $('#Address').val($(this).closest('tr').find('td:eq(9)').text().trim());
+
+                var empId = $(this).closest('tr').find('td:eq(10)').text().trim();
+                //alert(empId);
+                $("#Id").val(empId);
+                $("#btnSave").val("Edit");
+
+            });
+        });
+    </script>
