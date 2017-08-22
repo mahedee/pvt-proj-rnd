@@ -133,8 +133,7 @@ D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\bin\Mic
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.csprojResolveAssemblyReference.cache
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.dll
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.pdb
-D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.Migrations.initialmig.resources
+D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.Migrations.test.resources
 D:\Projects\Github\pvt-proj-rnd\Source\CheckBoxListDemo\CheckBoxListDemo\obj\Debug\CheckBoxListDemo.csproj.GenerateResource.Cache

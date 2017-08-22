@@ -21,5 +21,8 @@ namespace CheckBoxListDemo.Models
         public string Name { get; set; }
 
         public virtual ICollection<Facility> Facilities { get; set; }
+
+        [NotMapped]
+        public virtual List<FacilityVM> FacilitiesVM { get; set; }
     }
 }
