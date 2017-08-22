@@ -29,5 +29,8 @@ namespace CheckBoxListDemo.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<RoomType> RoomType { get; set; }
+        public DbSet<Facility> Facility { get; set; }
     }
 }

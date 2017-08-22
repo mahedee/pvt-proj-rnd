@@ -7,19 +7,19 @@ using System.Web;
 
 namespace CheckBoxListDemo.Models
 {
-    public class Facility
+    public class RoomType
     {
-        public Facility()
+        public RoomType()
         {
-            this.RoomTypes = new HashSet<RoomType>();
+            this.Facilities = new HashSet<Facility>();
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [StringLength(200)]
-        [Display(Name = "Facility Name")]
-        public string FacilityName { get; set; }
+        [Display(Name = "Room Type")]
+        public string Name { get; set; }
 
-        public virtual ICollection<RoomType> RoomTypes { get; set; }
+        public virtual ICollection<Facility> Facilities { get; set; }
     }
 }
