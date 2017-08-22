@@ -25,7 +25,17 @@ namespace CheckBoxListDemo.Controllers
         // GET: RoomTypeFacility/Create
         public ActionResult Create()
         {
-            return View();
+            List<RoomType> roomTypes = db.RoomType.ToList();
+            //List<Facility> facilities = db.Facility.ToList();
+            //lstCategory.Insert(0, new Category { Id = 0, Name = "--Select Category--" });
+
+            ViewBag.RoomTypes = new SelectList(roomTypes, "Id", "Name");
+            //ViewBag.Facilities = new SelectList(roomTypes, "Id", "FacilityName");
+
+            RoomTypeFacilityVM roomTypeFacilityVM = new RoomTypeFacilityVM();
+            roomTypeFacilityVM.Facilities = db.Facility.ToList();
+
+            return View(roomTypeFacilityVM);
         }
 
         // POST: RoomTypeFacility/Create
