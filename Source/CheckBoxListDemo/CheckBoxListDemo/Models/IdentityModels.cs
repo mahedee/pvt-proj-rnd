@@ -32,5 +32,6 @@ namespace CheckBoxListDemo.Models
 
         public DbSet<RoomType> RoomType { get; set; }
         public DbSet<Facility> Facility { get; set; }
+
     }
 }

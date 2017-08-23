@@ -14,5 +14,7 @@ namespace CheckBoxListDemo.Models
 
         public List<RoomType> RoomTypes { get; set; }
         public List<Facility> Facilities { get; set; }
+
+        public List<FacilityVM> FacilitiesVM { get; set; }
     }
 }

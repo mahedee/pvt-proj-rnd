@@ -1,0 +1,74 @@
+﻿@model CheckBoxListDemo.Models.RoomTypeFacilityVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>RoomTypeFacilityVM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomTypeId, "Room Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoomTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        @*@foreach (var item in Model.FacilitiesVM)
+            {
+
+                <div class="form-group">*@
+        @*@Html.Label(item.FacilityName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @*@Html.Hidden(item.Id.ToString())
+            @Html.Display(item.FacilityName)*@
+        @*<div class="col-md-10">
+            <div class="checkbox">*@
+        @*@Html.CheckBoxFor(p => item.IsChecked)*@
+        @*@Html.CheckBox(item.FacilityName, item.IsChecked)*@
+        @*@Html.DisplayFor(p => item.FacilityName)*@
+        @*@Html.CheckBox("FacilitiesVM", item.IsChecked)*@
+        @*@Html.CheckBoxFor(p=>item.IsChecked)
+                        </div>
+                    </div>
+                </div>
+            }*@
+
+
+        @foreach (var item in Model.FacilitiesVM)
+        {
+            <table>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="checkBox" value=@item.FacilityName name="FacilitiesVM" id=@item.Id />
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

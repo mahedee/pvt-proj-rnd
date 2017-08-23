@@ -26,22 +26,68 @@ namespace CheckBoxListDemo.Controllers
         public ActionResult Create()
         {
             List<RoomType> roomTypes = db.RoomType.ToList();
-            //List<Facility> facilities = db.Facility.ToList();
-            //lstCategory.Insert(0, new Category { Id = 0, Name = "--Select Category--" });
-
             ViewBag.RoomTypes = new SelectList(roomTypes, "Id", "Name");
-            //ViewBag.Facilities = new SelectList(roomTypes, "Id", "FacilityName");
+            int roomTypeId = roomTypes.FirstOrDefault().Id; //First room type id
+            List<FacilityVM> facilitiesVM = GetFacilities(roomTypeId);
+            return View(facilitiesVM);
+        }
 
-            RoomTypeFacilityVM roomTypeFacilityVM = new RoomTypeFacilityVM();
-            roomTypeFacilityVM.Facilities = db.Facility.ToList();
+        private List<FacilityVM> GetFacilities(int roomTypeId)
+        {
+            List<FacilityVM> facilitiesVM = new List<FacilityVM>();
+            List<Facility> facilitiesById = db.RoomType.Where(p => p.Id == roomTypeId).FirstOrDefault().Facilities.ToList();
 
-            return View(roomTypeFacilityVM);
+            foreach (var facility in db.Facility.ToList())
+            {
+                if (facilitiesById.Contains(facility))
+                {
+                    facilitiesVM.Add(new FacilityVM { Id = facility.Id, FacilityName = facility.FacilityName, IsChecked = true });
+                }
+                else
+                {
+                    facilitiesVM.Add(new FacilityVM { Id = facility.Id, FacilityName = facility.FacilityName, IsChecked = false });
+                }
+            }
+            return facilitiesVM;
         }
 
         // POST: RoomTypeFacility/Create
         [HttpPost]
-        public ActionResult Create(RoomTypeFacilityVM roomTypeFacility)
+        public ActionResult Create(int RoomTypes, List<FacilityVM> facilities)
         {
+
+            if (ModelState.IsValid)
+            {
+                RoomType roomType = db.RoomType.Where(p => p.Id == RoomTypes).FirstOrDefault();
+
+                foreach (Facility facility in db.Facility.ToList())
+                {
+                    roomType.Facilities.Remove(facility);
+                }
+                db.SaveChanges();
+
+                foreach (FacilityVM faciltyVM in facilities.Where(p=>p.IsChecked == true).ToList())
+                {
+                    //conn.Product.Add(p);
+                    // 3
+                    //conn.Product.Attach(p);
+
+                    db.RoomType.Add(roomType);
+                    db.RoomType.Attach(roomType);
+
+                    Facility facility = new Facility { Id = faciltyVM.Id };
+                    db.Facility.Add(facility);
+                    db.Facility.Attach(facility);
+                    //Add instance to the navigation property
+                    roomType.Facilities.Add(facility);
+                }
+
+                db.SaveChanges();
+
+            }
+
+            /*
+            //RoomTypeFacilityVM roomTypeFacility;
 
             if (ModelState.IsValid)
             {
@@ -62,6 +108,10 @@ namespace CheckBoxListDemo.Controllers
             }
 
             return View(roomTypeFacility);
+
+            */
+
+            return View();
         }
 
         // GET: RoomTypeFacility/Edit/5
