@@ -22,33 +22,17 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <table>
+        <table id="tblFacility">
             <tr>
                 <td>Room Type: </td>
                 <td>@Html.DropDownList("RoomTypes", null, htmlAttributes: new { @class = "form-control" })</td>
             </tr>
 
+            <tr>
 
-            @*@{
-                for (var i = 0; i < Model.Count(); i++)
-                {
-
-                    <tr>
-                        <td>
-                            @Html.HiddenFor(it => it[i].Id)
-                            @Html.DisplayFor(it => it[i].FacilityName)
-                        </td>
-                        <td>
-                            @Html.CheckBoxFor(it => it[i].IsChecked, new { Style = "vertical-align:3px}" })
-                        </td>
-                    </tr>
-                }
-            }*@
+            </tr>
 
                 @{ Html.RenderAction("_LoadFacility", new { roomTypeId = selectedRoomTypeId }); }
-                <div id="partial">
-
-                </div>
 
             <tr>
                 <td></td>
@@ -73,19 +57,11 @@
         $(function () {
 
             $('#RoomTypes').change(function () {
-                //alert("Selected index changed...");
-
                 var selectedRoomTypeId = $('#RoomTypes').val();
-                
-                //var desigId = $('#DesigSearch').val();
                 $('.chkList').hide();
-            
                 var url = "@Html.Raw(Url.Action("_LoadFacility", "RoomTypeFacility", new { roomTypeId = "-parameter"}))";
                 url = url.replace("-parameter", selectedRoomTypeId);
-                //url = url.replace("sempar", deptId);
-                $('#partial').load(url);
-
-
+                $("#tblFacility tr").eq(1).load(url);
             });
 
         });
