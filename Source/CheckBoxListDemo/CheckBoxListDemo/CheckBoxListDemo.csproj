@@ -265,6 +265,7 @@
     <Content Include="Views\RoomTypeFacility\Create1.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\RoomTypeFacility\Create.cshtml" />
+    <Content Include="Views\RoomTypeFacility\_LoadFacility.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

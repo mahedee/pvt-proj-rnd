@@ -1,0 +1,17 @@
+﻿@model List<CheckBoxListDemo.Models.FacilityVM>
+
+@{
+    for (var i = 0; i < Model.Count(); i++)
+    {
+
+        <tr>
+            <td>
+                @Html.HiddenFor(it => it[i].Id)
+                @Html.DisplayFor(it => it[i].FacilityName)
+            </td>
+            <td>
+                @Html.CheckBoxFor(it => it[i].IsChecked, new { Style = "vertical-align:3px}" })
+            </td>
+        </tr>
+    }
+}

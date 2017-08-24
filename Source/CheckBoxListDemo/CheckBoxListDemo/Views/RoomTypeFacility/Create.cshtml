@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    int selectedRoomTypeId = ViewBag.SelectedRoomTypeId;
 }
 
 <h2>Create</h2>
@@ -28,9 +29,8 @@
             </tr>
 
 
-            @{
+            @*@{
                 for (var i = 0; i < Model.Count(); i++)
-                //foreach (var item in Model)
                 {
 
                     <tr>
@@ -43,16 +43,23 @@
                         </td>
                     </tr>
                 }
-            }
+            }*@
+
+                @{ Html.RenderAction("_LoadFacility", new { roomTypeId = selectedRoomTypeId }); }
+                <div id="partial">
+
+                </div>
+
             <tr>
                 <td></td>
                 <td>
                     <input type="submit" value="Create" class="btn btn-default" />
                 </td>
             </tr>
-        </table>
 
+        </table>
     </div>
+
                 }
 
 <div>
@@ -61,4 +68,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+
+            $('#RoomTypes').change(function () {
+                //alert("Selected index changed...");
+
+                var selectedRoomTypeId = $('#RoomTypes').val();
+                
+                //var desigId = $('#DesigSearch').val();
+                $('.chkList').hide();
+            
+                var url = "@Html.Raw(Url.Action("_LoadFacility", "RoomTypeFacility", new { roomTypeId = "-parameter"}))";
+                url = url.replace("-parameter", selectedRoomTypeId);
+                //url = url.replace("sempar", deptId);
+                $('#partial').load(url);
+
+
+            });
+
+        });
+
+    </script>
+
 }

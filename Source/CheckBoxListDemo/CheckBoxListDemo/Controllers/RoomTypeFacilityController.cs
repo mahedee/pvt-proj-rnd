@@ -25,11 +25,23 @@ namespace CheckBoxListDemo.Controllers
         // GET: RoomTypeFacility/Create
         public ActionResult Create()
         {
+            //RoomTypeFacilityVM objRoomTypeFacilityVM = new RoomTypeFacilityVM();
+            
+
             List<RoomType> roomTypes = db.RoomType.ToList();
             ViewBag.RoomTypes = new SelectList(roomTypes, "Id", "Name");
             int roomTypeId = roomTypes.FirstOrDefault().Id; //First room type id
+
+            //Selected room type id
+            ViewBag.SelectedRoomTypeId = roomTypeId;
             List<FacilityVM> facilitiesVM = GetFacilities(roomTypeId);
             return View(facilitiesVM);
+        }
+
+        public ActionResult _LoadFacility(string roomTypeId)
+        {
+            List<FacilityVM> facilitiesVM = GetFacilities(Convert.ToInt32(roomTypeId));
+            return PartialView(facilitiesVM);
         }
 
         private List<FacilityVM> GetFacilities(int roomTypeId)
@@ -58,60 +70,44 @@ namespace CheckBoxListDemo.Controllers
 
             if (ModelState.IsValid)
             {
-                RoomType roomType = db.RoomType.Where(p => p.Id == RoomTypes).FirstOrDefault();
+                RoomType roomType;
 
-                foreach (Facility facility in db.Facility.ToList())
+                using (ApplicationDbContext delConn = new ApplicationDbContext())
                 {
-                    roomType.Facilities.Remove(facility);
-                }
-                db.SaveChanges();
-
-                foreach (FacilityVM faciltyVM in facilities.Where(p=>p.IsChecked == true).ToList())
-                {
-                    //conn.Product.Add(p);
-                    // 3
-                    //conn.Product.Attach(p);
-
-                    db.RoomType.Add(roomType);
-                    db.RoomType.Attach(roomType);
-
-                    Facility facility = new Facility { Id = faciltyVM.Id };
-                    db.Facility.Add(facility);
-                    db.Facility.Attach(facility);
-                    //Add instance to the navigation property
-                    roomType.Facilities.Add(facility);
+                    roomType = delConn.RoomType.Where(p => p.Id == RoomTypes).FirstOrDefault();
+                    //Delete all record
+                    foreach (Facility facility in delConn.Facility.ToList())
+                    {
+                        roomType.Facilities.Remove(facility);
+                    }
+                    delConn.SaveChanges();
                 }
 
-                db.SaveChanges();
+                //db = new ApplicationDbContext();
+                using (ApplicationDbContext insConn = new ApplicationDbContext())
+                {
+                    roomType = new RoomType { Id = RoomTypes };
+                    foreach (FacilityVM faciltyVM in facilities.Where(p => p.IsChecked == true).ToList())
+                    {
+                        insConn.RoomType.Add(roomType);
+                        insConn.RoomType.Attach(roomType);
+                        Facility facility = new Facility { Id = faciltyVM.Id };
+                        insConn.Facility.Add(facility);
+                        insConn.Facility.Attach(facility);
+                        //Add instance to the navigation property
+                        roomType.Facilities.Add(facility);
+                    }
+                    insConn.SaveChanges();
+                }
 
             }
 
-            /*
-            //RoomTypeFacilityVM roomTypeFacility;
-
-            if (ModelState.IsValid)
-            {
-                RoomType roomType = new RoomType { Id = roomTypeFacility.RoomTypeId };
-                //roomType.Id = roomTypeFacility.RoomTypeId;
-                db.RoomType.Add(roomType);
-                db.RoomType.Attach(roomType);
-
-                Facility facility = new Facility { Id = roomTypeFacility.FacilityId };
-                //facility.Id = roomTypeFacility.FacilityId;
-                db.Facility.Add(facility);
-                db.Facility.Attach(facility);
-
-                //Add instance to the navigation property
-                roomType.Facilities.Add(facility);
-
-                db.SaveChanges();
-            }
-
-            return View(roomTypeFacility);
-
-            */
-
-            return View();
+            //Return to create
+            List<RoomType> roomTypes = db.RoomType.ToList();
+            ViewBag.RoomTypes = new SelectList(roomTypes, "Id", "Name");
+            int roomTypeId = roomTypes.FirstOrDefault().Id; //First room type id
+            List<FacilityVM> facilitiesVM = GetFacilities(roomTypeId);
+            return View(facilitiesVM);
         }
 
         // GET: RoomTypeFacility/Edit/5
